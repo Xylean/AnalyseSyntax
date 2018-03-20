@@ -1,0 +1,6 @@
+#ifndef ANALYSESYNTAX_H_INCLUDED
+#define ANALYSESYNTAX_H_INCLUDED
+
+Arbre analyseSyntax(Item* token);
+
+#endif // ANALYSESYNTAX_H_INCLUDED
