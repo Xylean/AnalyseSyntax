@@ -66,18 +66,23 @@ int main()
     tab[14].token=PARENTHESE_F;
 
     tab[15].token=FIN;
-    //afficherTableau(tab);
-    printf("\n----------\n");
+
+    /// Test afficherTableau
+    /*afficherTableau(tab);
+    printf("\n----------\n");*/
 
     /// Test tailleTableau
-    printf("%d", tailleTableau(tab));
-    printf("\n----------\n");
+    /*printf("%d", tailleTableau(tab));
+    printf("\n----------\n");*/
 
-    /// Test scinder tableau
-    Item * tab1;
+    /// Test scinderTableau
+    /*Item * tab1;
     tab1 = scinderTableau(tab,5,8);
     afficherTableau(tab1);
-    printf("\n----------\n");
+    printf("\n----------\n");*/
+
+    /// Test emplacementPremierTableau
+    printf("%d", emplacementPremierOperateur(tab));
 
     //do{
         /*saisie(texte);

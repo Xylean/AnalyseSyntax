@@ -9,4 +9,8 @@ Item *scinderTableau(Item tab[], int debut, int fin);
 
 void afficherTableau(Item tab[]);
 
+int emplacementPremierOperateur(Item tab[]);
+
+Arbre conversionTableauArbre(Item tab[]);
+
 #endif // ANALYSESYNTAX_H_INCLUDED
