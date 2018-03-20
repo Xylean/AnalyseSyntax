@@ -27,6 +27,24 @@ int main()
     liste = (Point*)malloc(sizeof(Point)*SIZE);
 
     /// Tests tableaux : création d'un tableau
+    Item tab[15];
+    tab[0].valeur.fonction = COS;
+    tab[1].token=PARENTHESE_O;
+    tab[2].token=PARENTHESE_O;
+    tab[3].token=REEL;
+    tab[3].valeur.reel=3;
+    tab[4].valeur.operateur=MULTI;
+    tab[5].token=VARIABLE;
+    tab[6].token=PARENTHESE_F;
+    tab[7].valeur.operateur=PLUS;
+    tab[8].token=REEL;
+    tab[8].valeur.reel=2;
+    tab[9].token=PARENTHESE_F;
+    tab[10].valeur.operateur=PLUS;
+    tab[11].valeur.fonction = EXP;
+    tab[12].token=PARENTHESE_O;
+    tab[13].token=VARIABLE;
+    tab[14].token=PARENTHESE_F;
 
 
     //do{
