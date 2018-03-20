@@ -19,15 +19,15 @@ float start, stop;
 
 int main()
 {
-    char texte[1000];
+    /*char texte[1000];
     Item* equation = NULL;
     Point* liste = NULL;
     Arbre arbre = NULL;
 
-    liste = (Point*)malloc(sizeof(Point)*SIZE);
+    liste = (Point*)malloc(sizeof(Point)*SIZE);*/
 
     /// Tests tableaux : création d'un tableau
-    Item tab[15];
+    Item tab[16];
     tab[0].valeur.fonction = COS;
     tab[1].token=PARENTHESE_O;
     tab[2].token=PARENTHESE_O;
@@ -45,6 +45,10 @@ int main()
     tab[12].token=PARENTHESE_O;
     tab[13].token=VARIABLE;
     tab[14].token=PARENTHESE_F;
+    tab[15].token=FIN;
+
+    /// Test tailleTableau
+    printf("%d", tailleTableau(tab));
 
 
     //do{
