@@ -5,6 +5,8 @@ Arbre analyseSyntax(Item* token);
 
 int tailleTableau(Item tab[]);
 
-Item scinderTableau(Item tab[], int debut, int fin);
+Item *scinderTableau(Item tab[], int debut, int fin);
+
+void afficherTableau(Item tab[]);
 
 #endif // ANALYSESYNTAX_H_INCLUDED
