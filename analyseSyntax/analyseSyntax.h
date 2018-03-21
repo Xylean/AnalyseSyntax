@@ -7,6 +7,8 @@ int tailleTableau(Item tab[]);
 
 Item *scinderTableau(Item tab[], int debut, int fin);
 
+Item *supprimerParantheseInutile(Item tab[]);
+
 void afficherTableau(Item tab[]);
 
 int emplacementPremierOperateur(Item tab[]);

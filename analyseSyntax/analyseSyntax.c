@@ -6,7 +6,8 @@
 // Created by xyle7 on 20/03/2018.
 int tailleTableau(Item tab[])
 {
-    int i = 0;
+    int i = 0, res;
+    if (tab == NULL) return 0;
     while (tab [i].token != FIN){
         i++;
     }
@@ -16,13 +17,14 @@ int tailleTableau(Item tab[])
 Item *scinderTableau(Item tab[], int debut, int fin)
 {
     int difference = fin - debut, i, taille = tailleTableau(tab);
+    printf("difference : %d ", difference);
     Item *tableau = malloc((difference+2)*sizeof(Item));
     if (difference < taille){
         for (i = debut; i <= fin; i ++)
         {
             tableau[i-debut] = tab[i];
         }
-        if (tab[fin].token != FIN) tableau[difference+2].token=FIN;
+        if (tab[fin].token != FIN) tableau[difference+1].token=FIN;
     } else tableau = tab;
     return tableau;
 }
@@ -37,6 +39,21 @@ int emplacementPremierOperateur(Item tab[])
     if (tab[i].token == FIN) res =-1;
     else res= i;
     return res;
+}
+
+Item *supprimerParantheseInutile(Item tab[])
+{
+    int taille = tailleTableau(tab);
+
+    if (taille > 2) while(tab[0].token == PARENTHESE_O && tab[taille-2].token == PARENTHESE_F)
+    {
+        tab = scinderTableau(tab,1, taille-3);
+    }
+    /*taille = tailleTableau(tab);
+    Item *tableau = malloc((taille)*sizeof(Item));
+    tableau = tab;*/
+    return tab;
+
 }
 
 Arbre conversionTableauArbre(Arbre abr, Item tab[])
@@ -143,7 +160,7 @@ void afficherTableau(Item tab[])
                     printf("( ");
                     break;
                 case REEL:
-                    printf("%lf ", tab[i].valeur.reel);
+                    printf("y ");
                     break;
                 case VARIABLE:
                     printf("x ");

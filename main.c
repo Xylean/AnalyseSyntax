@@ -26,8 +26,9 @@ int main()
 
     liste = (Point*)malloc(sizeof(Point)*SIZE);*/
 
-    /// Tests tableaux : création d'un tableau
-    Item tab[16];
+    /// Tests tableaux : création d'un tableau represantant la fonction cos(3*x+2) + exp(x)
+    Item  * tab;
+    tab = malloc (16*sizeof(Item));
     tab[0].valeur.fonction = COS;
     tab[0].token=FONCTION;
 
@@ -68,8 +69,9 @@ int main()
     tab[15].token=FIN;
 
     /// Test afficherTableau
-    /*afficherTableau(tab);
-    printf("\n----------\n");*/
+    //afficherTableau(tab);
+    //printf("\n----------\n");
+    //printf("%d \n ---------\n", tab[1].token);
 
     /// Test tailleTableau
     /*printf("%d", tailleTableau(tab));
@@ -82,7 +84,22 @@ int main()
     printf("\n----------\n");*/
 
     /// Test emplacementPremierTableau
-    printf("%d", emplacementPremierOperateur(tab));
+    /*printf("%d", emplacementPremierOperateur(tab));
+    printf("\n----------\n");*/
+
+    /// Test supprimerParantheseInutile
+    printf("%p", tab);
+    tab = scinderTableau(tab,1,9);
+    printf("%p", tab);
+    //printf("%d", tab[9].token);
+    afficherTableau(tab);
+    printf("\n----------\n");
+    printf("%d \n ---------\n", tab[0].token);
+    //tab = supprimerParantheseInutile(tab);
+    //printf("%d", tab1[1].token);
+    //afficherTableau(tab1);
+    //printf("\n----------\n");
+
 
     //do{
         /*saisie(texte);
