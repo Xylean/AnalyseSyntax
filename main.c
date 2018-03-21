@@ -99,10 +99,10 @@ int main()
     printf("\n----------\n");*/
 
     /// Test de la fonction conversionTableauArbre
-    //Arbre abr;
-    //abr = creerArbre();
-    //abr = conversionTableauArbre(abr,tab);
-    //printTree(abr);
+    Arbre abr;
+    abr = creerArbre();
+    abr = conversionTableauArbre(abr,tab);
+    printTree(abr);
 
 
 

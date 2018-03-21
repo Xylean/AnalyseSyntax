@@ -391,8 +391,8 @@ Item *supprimerParantheseInutile(Item tab[])
 
 Arbre conversionTableauArbre(Arbre abr, Item tab[])
 {
-    int i,j, taille = tailleTableau(tab), paranthese = 0;
     tab = supprimerParantheseInutile(tab);
+    int i,j, taille = tailleTableau(tab), paranthese = 0;
     if (nombreOperateurDisponible(tab) != 0) {
         for (i=0; i < taille; i++) {
             if (tab[i].token == PARENTHESE_O) paranthese++;
@@ -411,11 +411,11 @@ Arbre conversionTableauArbre(Arbre abr, Item tab[])
             if (tab[j].token == FONCTION && paranthese == 0) {
                 abr = creerNoeud(abr, tab[j].token, tab[j].valeur); //Belle fonction Lorin
                 abr->filsGauche = conversionTableauArbre(abr->filsGauche, scinderTableau(tab, j + 1, taille));
-            } else if ((tab[j].token == REEL || tab[j].token == VARIABLE) && paranthese == 0 && abr->filsGauche == NULL){
-                abr->filsGauche = creerNoeud(abr->filsGauche, tab[j].token, tab[j].valeur); // Belle fonction de Lorine
-            } else if ((tab[j].token == REEL || tab[j].token == VARIABLE) && paranthese == 0 && abr->filsDroit == NULL){
+            } else if ((tab[j].token == REEL || tab[j].token == VARIABLE) && paranthese == 0){
+                abr = creerNoeud(abr, tab[j].token, tab[j].valeur); // Belle fonction de Lorine
+            /*} else if ((tab[j].token == REEL || tab[j].token == VARIABLE) && paranthese == 0){
                 abr->filsDroit = creerNoeud(abr->filsDroit, tab[j].token, tab[j].valeur); // Belle fonction de Lorine
-            }
+            */}
         }
     }
     return abr;
