@@ -87,11 +87,23 @@ int main()
     printf("\n----------\n");*/
 
     /// Test supprimerParantheseInutile
-    /*tab = scinderTableau(tab,1,9);
+    /*tab = scinderTableau(tab,0,9);
+    afficherTableau(tab);
+    printf("\n----------\n");
+    printf("%d", nombreOperateurDisponible(tab));
+    tab = scinderTableau(tab,1,1);
+    afficherTableau(tab);
     printf("\n----------\n");
     tab = supprimerParantheseInutile(tab);
     afficherTableau(tab);
     printf("\n----------\n");*/
+
+    /// Test de la fonction conversionTableauArbre
+    //Arbre abr;
+    //abr = creerArbre();
+    //abr = conversionTableauArbre(abr,tab);
+    //printTree(abr);
+
 
 
     //do{
