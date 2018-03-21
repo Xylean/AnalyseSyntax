@@ -171,4 +171,5 @@ void afficherTableau(Item tab[])
             }
         }
     }
+    printf ("\n");
 }
