@@ -69,9 +69,8 @@ int main()
     tab[15].token=FIN;
 
     /// Test afficherTableau
-    //afficherTableau(tab);
-    //printf("\n----------\n");
-    //printf("%d \n ---------\n", tab[1].token);
+    /*afficherTableau(tab);
+    printf("\n----------\n");*/
 
     /// Test tailleTableau
     /*printf("%d", tailleTableau(tab));
@@ -88,14 +87,11 @@ int main()
     printf("\n----------\n");*/
 
     /// Test supprimerParantheseInutile
-    //tab = scinderTableau(tab,1,9);
-    //printf("%d", tab[9].token);
-    //(tab);
-    //printf("\n----------\n");
+    /*tab = scinderTableau(tab,1,9);
+    printf("\n----------\n");
     tab = supprimerParantheseInutile(tab);
-    //printf("%d", tab1[1].token);
     afficherTableau(tab);
-    //printf("\n----------\n");
+    printf("\n----------\n");*/
 
 
     //do{

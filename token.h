@@ -8,12 +8,12 @@ typedef enum{
 
 //Les functions
 typedef enum{
-    ABS, SIN, COS, TAN, SINH, COSH, TANH, SQRT, LOG, EXP, VAL_NEG, MOD
+    ABS, SIN, COS, TAN, SINH, COSH, TANH, SQRT, LOG, EXP, VAL_NEG
 }Fonction;
 
 //Les opérateurs
 typedef enum{
-    PLUS, MOINS, DIV, MULTI, PUIS
+    PLUS, MOINS, DIV, MULTI, PUIS, MOD
 }Operateur;
 
 /** Elles sont à definir **/
