@@ -88,16 +88,13 @@ int main()
     printf("\n----------\n");*/
 
     /// Test supprimerParantheseInutile
-    printf("%p", tab);
-    tab = scinderTableau(tab,1,9);
-    printf("%p", tab);
+    //tab = scinderTableau(tab,1,9);
     //printf("%d", tab[9].token);
-    afficherTableau(tab);
-    printf("\n----------\n");
-    printf("%d \n ---------\n", tab[0].token);
-    //tab = supprimerParantheseInutile(tab);
+    //(tab);
+    //printf("\n----------\n");
+    tab = supprimerParantheseInutile(tab);
     //printf("%d", tab1[1].token);
-    //afficherTableau(tab1);
+    afficherTableau(tab);
     //printf("\n----------\n");
 
 

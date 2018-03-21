@@ -17,7 +17,6 @@ int tailleTableau(Item tab[])
 Item *scinderTableau(Item tab[], int debut, int fin)
 {
     int difference = fin - debut, i, taille = tailleTableau(tab);
-    printf("difference : %d ", difference);
     Item *tableau = malloc((difference+2)*sizeof(Item));
     if (difference < taille){
         for (i = debut; i <= fin; i ++)
