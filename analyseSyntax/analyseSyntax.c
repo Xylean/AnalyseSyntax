@@ -6,6 +6,16 @@
 // Created by xyle7 on 20/03/2018.
 
 /// Partie Lorin -----
+int tailleTableau(Item tab[])
+{
+    int i = 0, res;
+    if (tab == NULL) return 0;
+    while (tab [i].token != FIN){
+        i++;
+    }
+    return i+1;
+}
+
 int testArbreValid (Arbre arbre, int test)
 {
     if (arbre!=NULL && test == 0)
@@ -28,93 +38,99 @@ int testArbreValid (Arbre arbre, int test)
     return test;
 }
 
+void afficherTableau(Item tab[])
+{
+    int i;
+    for (i = 0; tab[i].token != FIN; i++) {
+        if (tab[i].token == OPERATEUR) {
+            switch (tab[i].valeur.operateur) {
+                case PLUS:
+                    printf("+ ");
+                    break;
+                case MOINS:
+                    printf("- ");
+                    break;
+                case DIV:
+                    printf("/ ");
+                    break;
+                case MULTI:
+                    printf("* ");
+                    break;
+                case PUIS:
+                    printf("^ ");
+                    break;
+                case MOD:
+                    printf("%% ");
+                    break;
+                default:
+                    printf("");
+                    break;
+            }
+        } else if (tab[i].token == FONCTION) {
+            switch (tab[i].valeur.fonction) {
+                case ABS:
+                    printf("abs ");
+                    break;
+                case SIN:
+                    printf("sin ");
+                    break;
+                case COS:
+                    printf("cos ");
+                    break;
+                case EXP:
+                    printf("exp ");
+                    break;
+                case TAN:
+                    printf("tan ");
+                    break;
+                case COSH:
+                    printf("cosh ");
+                    break;
+                case SINH:
+                    printf("sinh ");
+                    break;
+                case TANH:
+                    printf("tanh ");
+                    break;
+                case SQRT:
+                    printf("sqrt ");
+                    break;
+                case LOG:
+                    printf("log ");
+                    break;
+                case VAL_NEG:
+                    printf("- ");
+                    break;
+                default:
+                    printf("");
+                    break;
+            }
+        } else {
+            switch (tab[i].token) {
+                case PARENTHESE_F:
+                    printf(") ");
+                    break;
+                case PARENTHESE_O:
+                    printf("( ");
+                    break;
+                case REEL:
+                    printf("y ");
+                    break;
+                case VARIABLE:
+                    printf("x ");
+                    break;
+                default:
+                    printf("");
+                    break;
+            }
+        }
+    }
+    printf ("\n");
+}
+
 Arbre creerArbre ()
 {
     return NULL;
-}
-
-Arbre creerNoeud (Arbre arbre, Token type, TypeValeur value)
-{
-    arbre = malloc (sizeof(struct ArbreSt));
-    arbre->filsDroit = NULL;
-    arbre->filsGauche = NULL;
-    arbre->item.token = type;
-    if (arbre->item.token==REEL)
-    {
-        arbre->item.valeur.reel=value.reel;
-    } else if (arbre->item.token==VARIABLE)
-    {
-        arbre->item.valeur.reel=0;
-    } else if (arbre->item.token==FONCTION)
-    {
-        arbre->item.valeur.fonction=value.fonction;
-    } else if (arbre->item.token==OPERATEUR)
-    {
-        arbre->item.valeur.fonction=value.fonction;
-    } else
-    {
-        arbre->item.valeur.erreur = NON_VALID_VALUE;
-        arbre->item.token = erreur;
-    }
-    return arbre;
-}
-
-int testParentheseSimple (Item * liste)
-{
-    int testParenthese = 0;
-    int resultat = 0;
-    int tailleTable = tailleTableau (liste);
-    int compt;
-    for (compt=0; compt<tailleTable; compt++)
-    {
-        if (liste[compt].token==PARENTHESE_O) testParenthese +=1;
-        if (liste[compt].token==PARENTHESE_F) testParenthese -=1;
-    }
-    if (testParenthese < 0) resultat = -1;
-    else if (testParenthese > 0) resultat = 1;
-    return testParenthese;
-}
-
-void testParentheseComplex (Item  * liste)
-{
-    int preTest = testParentheseSimple (liste);
-    if (preTest < 0) testParentheseFerme (liste);
-    else if (preTest > 0) testParentheseOuvert (liste);
-}
-
-void testParentheseOuvert (Item *)
-{
-    int compt = tailleTableau (liste)-1;
-    int test = 0;
-    while (test <= 0 && compt != -1)
-    {
-        if (liste[compt].token==PARENTHESE_F) test--;
-        else if (liste[compt].token==PARENTHESE_O) test++;
-        compt--;
-    }
-    if (compt !=1)
-    {
-        printf ("Erreur : parenthese oouverte non ferme\n")
-        printErreur (liste, compt);
-    }
-}
-
-void testParentheseFerme (Item *)
-{
-    int compt = 0;
-    int taille = tailleTableau (liste)-1;
-    int test = 0;
-    while (test <= 0 && compt < taille)
-    {
-        if (liste[compt].token==PARENTHESE_F) test--;
-        else if (liste[compt].token==PARENTHESE_O) test++;
-        compt++;
-    }
-    if (compt == taille)
-    {
-        printf ("Erreur : parenthese ferme non ouverte\n")
-        printErreur (liste, compt);
-    }
 }
 
 void printErreur (Item * liste, int pos)
@@ -123,8 +139,8 @@ void printErreur (Item * liste, int pos)
     int compt;
     for (compt=0 ; compt<pos ; compt++)
     {
-        if (tab[i].token == OPERATEUR) {
-            switch (tab[i].valeur.operateur) {
+        if (liste[compt].token == OPERATEUR) {
+            switch (liste[compt].valeur.operateur) {
                 case PLUS:
                     printf("  ");
                     break;
@@ -141,14 +157,14 @@ void printErreur (Item * liste, int pos)
                     printf("  ");
                     break;
                 case MOD:
-                    printf("    ");
+                    printf("  ");
                     break;
                 default:
                     printf("");
                     break;
             }
-        } else if (tab[i].token == FONCTION) {
-            switch (tab[i].valeur.fonction) {
+        } else if (liste[compt].token == FONCTION) {
+            switch (liste[compt].valeur.fonction) {
                 case ABS:
                     printf("    ");
                     break;
@@ -189,7 +205,7 @@ void printErreur (Item * liste, int pos)
         }
         else
         {
-            switch (tab[i].token) {
+            switch (liste[compt].token) {
                 case PARENTHESE_F:
                     printf("  ");
                     break;
@@ -210,16 +226,93 @@ void printErreur (Item * liste, int pos)
     }
     printf("^");
 }
-///--------------------
-int tailleTableau(Item tab[])
+
+Arbre creerNoeud (Arbre arbre, Token type, TypeValeur value)
 {
-    int i = 0, res;
-    if (tab == NULL) return 0;
-    while (tab [i].token != FIN){
-        i++;
+    arbre = malloc (sizeof(struct ArbreSt));
+    arbre->filsDroit = NULL;
+    arbre->filsGauche = NULL;
+    arbre->item.token = type;
+    if (arbre->item.token==REEL)
+    {
+        arbre->item.valeur.reel=value.reel;
+    } else if (arbre->item.token==VARIABLE)
+    {
+        arbre->item.valeur.reel=0;
+    } else if (arbre->item.token==FONCTION)
+    {
+        arbre->item.valeur.fonction=value.fonction;
+    } else if (arbre->item.token==OPERATEUR)
+    {
+        arbre->item.valeur.fonction=value.fonction;
+    } else
+    {
+        arbre->item.valeur.erreur = NON_VALID_VALUE;
+        arbre->item.token = ERREUR;
     }
-    return i+1;
+    return arbre;
 }
+
+int testParentheseSimple (Item * liste)
+{
+    int testParenthese = 0;
+    int resultat = 0;
+    int tailleTable = tailleTableau (liste);
+    int compt;
+    for (compt=0; compt<tailleTable; compt++)
+    {
+        if (liste[compt].token==PARENTHESE_O) testParenthese +=1;
+        if (liste[compt].token==PARENTHESE_F) testParenthese -=1;
+    }
+    if (testParenthese < 0) resultat = -1;
+    else if (testParenthese > 0) resultat = 1;
+    return testParenthese;
+}
+
+void testParentheseComplex (Item  * liste)
+{
+    int preTest = testParentheseSimple (liste);
+    if (preTest < 0) testParentheseFerme (liste);
+    else if (preTest > 0) testParentheseOuvert (liste);
+}
+
+void testParentheseOuvert (Item * liste)
+{
+    int compt = tailleTableau (liste)-1;
+    int test = 0;
+    while (test <= 0 && compt != -1)
+    {
+        if (liste[compt].token==PARENTHESE_F) test--;
+        else if (liste[compt].token==PARENTHESE_O) test++;
+        compt--;
+    }
+    if (compt !=1)
+    {
+        printf ("Erreur : parenthese oouverte non ferme\n");
+        printErreur (liste, compt);
+    }
+}
+
+void testParentheseFerme (Item * liste)
+{
+    int compt = 0;
+    int taille = tailleTableau (liste)-1;
+    int test = 0;
+    while (test <= 0 && compt < taille)
+    {
+        if (liste[compt].token==PARENTHESE_F) test--;
+        else if (liste[compt].token==PARENTHESE_O) test++;
+        compt++;
+    }
+    if (compt == taille)
+    {
+        printf ("Erreur : parenthese ferme non ouverte\n");
+        printErreur (liste, compt);
+    }
+}
+
+
+///--------------------
 
 Item *scinderTableau(Item tab[], int debut, int fin)
 {
@@ -293,95 +386,4 @@ Arbre conversionTableauArbre(Arbre abr, Item tab[])
         }
     }
     return abr;
-}
-
-
-void afficherTableau(Item tab[])
-{
-    int i;
-    for (i = 0; tab[i].token != FIN; i++) {
-        if (tab[i].token == OPERATEUR) {
-            switch (tab[i].valeur.operateur) {
-                case PLUS:
-                    printf("+ ");
-                    break;
-                case MOINS:
-                    printf("- ");
-                    break;
-                case DIV:
-                    printf("/ ");
-                    break;
-                case MULTI:
-                    printf("* ");
-                    break;
-                case PUIS:
-                    printf("^ ");
-                    break;
-                default:
-                    printf("");
-                    break;
-            }
-        } else if (tab[i].token == FONCTION) {
-            switch (tab[i].valeur.fonction) {
-                case ABS:
-                    printf("abs ");
-                    break;
-                case SIN:
-                    printf("sin ");
-                    break;
-                case COS:
-                    printf("cos ");
-                    break;
-                case EXP:
-                    printf("exp ");
-                    break;
-                case TAN:
-                    printf("tan ");
-                    break;
-                case COSH:
-                    printf("cosh ");
-                    break;
-                case SINH:
-                    printf("sinh ");
-                    break;
-                case TANH:
-                    printf("tanh ");
-                    break;
-                case SQRT:
-                    printf("sqrt ");
-                    break;
-                case LOG:
-                    printf("log ");
-                    break;
-                case VAL_NEG:
-                    printf("- ");
-                    break;
-                case MOD:
-                    printf("°/. ");
-                    break;
-                default:
-                    printf("");
-                    break;
-            }
-        } else {
-            switch (tab[i].token) {
-                case PARENTHESE_F:
-                    printf(") ");
-                    break;
-                case PARENTHESE_O:
-                    printf("( ");
-                    break;
-                case REEL:
-                    printf("y ");
-                    break;
-                case VARIABLE:
-                    printf("x ");
-                    break;
-                default:
-                    printf("");
-                    break;
-            }
-        }
-    }
-    printf ("\n");
 }
