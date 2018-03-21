@@ -15,7 +15,7 @@ Arbre creerNoeud (Arbre, Token, TypeValeur);
 
 int testParentheseSimple (Item *);
 
-void testParentheseComplex (Item *);
+int testParentheseComplex (Item *);
 
 void testParentheseOuvert (Item *);
 

@@ -328,11 +328,12 @@ int testParentheseSimple (Item * liste)
     return resultat;
 }
 
-void testParentheseComplex (Item  * liste)
+int testParentheseComplex (Item  * liste)
 {
     int preTest = testParentheseSimple (liste);
     if (preTest < 0) testParentheseFerme (liste);
     else if (preTest > 0) testParentheseOuvert (liste);
+    return preTest;
 }
 
 ///--------------------
@@ -417,6 +418,18 @@ Arbre conversionTableauArbre(Arbre abr, Item tab[])
                 abr->filsDroit = creerNoeud(abr->filsDroit, tab[j].token, tab[j].valeur); // Belle fonction de Lorine
             */}
         }
+    }
+    return abr;
+}
+
+Arbre analyseSyntax(Item * table)
+{
+    int testValid =0;
+    Arbre abr = creerArbre();
+    if (testParentheseComplex(table) == 0){
+        abr = conversionTableauArbre(abr,table);
+        testValid = testArbreValid(abr, testValid);
+        if (testValid != 0) abr = NULL;
     }
     return abr;
 }
