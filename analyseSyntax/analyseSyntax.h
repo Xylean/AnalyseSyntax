@@ -30,7 +30,7 @@ int tailleTableau(Item *);
 Item *scinderTableau(Item *, int, int);
 
 // Retourne le tableau mis en parrametre dont les paranthèses dites inutiles ont étées supprimées[ Exemple : ((((((x + 2)))))) --> x + 2 ]
-Item *supprimerParantheseInutile(Item *);
+Item *supprimerParentheseInutile(Item *);
 
 // Affiche le tableau mis en parametre
 void afficherTableau(Item *);
@@ -40,5 +40,19 @@ int nombreOperateurDisponible(Item *);
 
 // Prends en paramètre un arbre vide et un tableau d'Item. Retourne le tableau convertit en arbre
 Arbre conversionTableauArbre(Arbre, Item *);
+
+void test_afficherTableau(Item *);
+
+void test_tailleTableau(Item *);
+
+void test_scinderTableau(Item *);
+
+void test_nombreOperateurDisponible(Item *);
+
+void test_supprimerParantheseInutile(Item *);
+
+void test_conversionTableauArbre(Item *);
+
+void test_analyseSyntax(Item *);
 
 #endif // ANALYSESYNTAX_H_INCLUDED

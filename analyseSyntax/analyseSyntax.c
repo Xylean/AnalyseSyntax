@@ -358,7 +358,7 @@ int nombreOperateurDisponible(Item tab[])
     return res;
 }
 
-Item *supprimerParantheseInutile(Item tab[])
+Item *supprimerParentheseInutile(Item tab[])
 {
     int taille = tailleTableau(tab);
 
@@ -373,20 +373,24 @@ Item *supprimerParantheseInutile(Item tab[])
 
 Arbre conversionTableauArbre(Arbre abr, Item tab[])
 {
-    tab = supprimerParantheseInutile(tab);
+    tab = supprimerParentheseInutile(tab);
     afficherTableau(tab);
     int i,j, taille = tailleTableau(tab), paranthese = 0;
     if (nombreOperateurDisponible(tab) != 0) {
         for (i=0; i < taille; i++) {
+            //On traite uniquement ce qui est en dehors des parenthese
             if (tab[i].token == PARENTHESE_O) paranthese++;
             if (tab[i].token == PARENTHESE_F) paranthese--;
             if (tab[i].token == OPERATEUR && paranthese == 0) {
                 abr = creerNoeud(abr, tab[i].token, tab[i].valeur);
-                abr->filsGauche = conversionTableauArbre(abr->filsGauche, scinderTableau(tab, 0, i - 1));
-                if (i != 0) abr->filsDroit = conversionTableauArbre(abr->filsDroit, scinderTableau(tab, i + 1, taille));
+                // On scinde l'expression à droite et à gauche de l'operateur
+                // Puis on utilise conversionTableauArbre avec les deux nouveaux tableaux obtenus.
+                abr->filsDroit = conversionTableauArbre(abr->filsDroit, scinderTableau(tab, i + 1, taille));
+                if (i != 0) abr->filsGauche = conversionTableauArbre(abr->filsGauche, scinderTableau(tab, 0, i - 1));
             }
         }
     } else if (nombreOperateurDisponible(tab) == 0) {
+        // On procède la meme maniere pour les fonctions
         for (j=0; j < taille; j++) {
             if (tab[j].token == PARENTHESE_O) paranthese++;
             if (tab[j].token == PARENTHESE_F) paranthese--;
@@ -394,6 +398,7 @@ Arbre conversionTableauArbre(Arbre abr, Item tab[])
                 abr = creerNoeud(abr, tab[j].token, tab[j].valeur);
                 abr->filsGauche = conversionTableauArbre(abr->filsGauche, scinderTableau(tab, j + 1, taille));
             } else if ((tab[j].token == REEL || tab[j].token == VARIABLE) && paranthese == 0){
+                // Pour les variables nous créeons directement un noeud qui prend ses valeurs
                 abr = creerNoeud(abr, tab[j].token, tab[j].valeur);
             }
         }
@@ -412,4 +417,62 @@ Arbre analyseSyntax(Item * table)
         if (testValid != 0) abr = NULL; //printf("\nShit Append!");
     }
     return abr;
+}
+
+void test_afficherTableau(Item * tab){
+    printf("f(x) = ");
+    afficherTableau(tab);
+    printf("----------\n");
+}
+
+void test_tailleTableau(Item * tab){
+    printf("La taille du tableau : %d", tailleTableau(tab));
+    printf("\n----------\n");
+}
+
+void test_scinderTableau(Item * tab){
+    Item * tab1;
+    tab1 = scinderTableau(tab,5,8);
+    printf("g(x) = ");
+    afficherTableau(tab1);
+    printf("----------\n");
+}
+
+void test_nombreOperateurDisponible(Item * tab){
+    afficherTableau(tab);
+    printf("Il y a %d operateur(s) disponible(s)", nombreOperateurDisponible(tab));
+    printf("\n----------\n");
+    tab = scinderTableau(tab,0,9);
+    afficherTableau(tab);
+    printf("Il y a %d operateur(s) disponible(s)", nombreOperateurDisponible(tab));
+    printf("\n----------\n");
+}
+
+void test_supprimerParantheseInutile(Item * tab){
+    tab = scinderTableau(tab,1,9);
+    printf("h(x) = ");
+    afficherTableau(tab);
+    printf("----------\n");
+    printf("Suppression des parenthese intulies :\n");
+    tab = supprimerParentheseInutile(tab);
+    printf("h(x) = ");
+    afficherTableau(tab);
+    printf("----------\n");
+}
+
+void test_conversionTableauArbre(Item * tab){
+    Arbre abr;
+    abr = creerArbre();
+    abr = conversionTableauArbre(abr,tab);
+    printf("----------\n");
+    printTree(abr);
+    printf("----------\n");
+}
+
+void test_analyseSyntax(Item * tab){
+    Arbre abr = creerArbre();
+    abr = analyseSyntax(tab);
+    printf("----------\n");
+    if (abr != NULL) printf("Sucess!");else printf("FAIL!!!");
+    printf("\n----------\n");
 }

@@ -2,14 +2,13 @@
 #include <stdlib.h>
 #include <float.h>
 #include <math.h>
-
 #define SIZE 20000
 
 #include "token.h"
 #include "global.h"
 #include "menu/menu.h"
 
-//#include "analyseLex/analyseLex.h"
+#include "analyseLex/analyseLex.h"
 #include "analyseSyntax/analyseSyntax.h"
 //#include "evaluateur/evaluateur.h"
 //#include "graph/graph.h"
@@ -20,12 +19,6 @@ float start, stop;
 
 int main()
 {
-    /*char texte[1000];
-    Item* equation = NULL;
-    Point* liste = NULL;
-    Arbre arbre = NULL;
-
-    liste = (Point*)malloc(sizeof(Point)*SIZE);*/
 
     /// Tests tableaux : création d'un tableau represantant la fonction cos(3*x+2) + exp(x)
     Item  * tab;
@@ -70,56 +63,27 @@ int main()
     tab[15].token=FIN;
 
     /// Test afficherTableau
-    /*afficherTableau(tab);
-    printf("\n----------\n");*/
+    test_afficherTableau(tab);
 
     /// Test tailleTableau
-    /*printf("%d", tailleTableau(tab));
-    printf("\n----------\n");*/
+    test_tailleTableau(tab);
 
     /// Test scinderTableau
-    /*Item * tab1;
-    tab1 = scinderTableau(tab,5,8);
-    afficherTableau(tab1);
-    printf("\n----------\n");*/
+    test_scinderTableau(tab);
 
-    /// Test emplacementPremierTableau
-    /*printf("%d", emplacementPremierOperateur(tab));
-    printf("\n----------\n");*/
+    /// Test nombreOperateurDisponible
+    test_nombreOperateurDisponible(tab);
 
     /// Test supprimerParantheseInutile
-    /*tab = scinderTableau(tab,0,9);
-    afficherTableau(tab);
-    printf("\n----------\n");
-    printf("%d", nombreOperateurDisponible(tab));
-    tab = scinderTableau(tab,1,1);
-    afficherTableau(tab);
-    printf("\n----------\n");
-    tab = supprimerParantheseInutile(tab);
-    afficherTableau(tab);
-    printf("\n----------\n");*/
+    test_supprimerParantheseInutile(tab);
 
-    /// Test de la fonction conversionTableauArbre
-    //Arbre abr;
-    //abr = creerArbre();
-    //abr = conversionTableauArbre(abr,tab);
-    //printTree(abr);
+    /// Test conversionTableauArbre
+    test_conversionTableauArbre(tab);
 
-    ///Test de la fonction analyseSyntax
-    /*Arbre abr = creerArbre();
-    abr = analyseSyntax(tab);
-    if (abr != NULL) printf("Sucess!");*/
+    ///Test analyseSyntax
+    test_analyseSyntax(tab);
 
-    menu();
+    //menu();
 
-
-
-    //do{
-        /*saisie(texte);
-        equation = analyseLex(texte);
-        arbre = analyseSyntax(equation);
-        liste = evaluateur(arbre);
-        graph(liste);*/
-    //}while(1);
     return 0;
 }
