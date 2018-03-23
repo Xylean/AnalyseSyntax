@@ -91,42 +91,39 @@ int main()
     tab[14].token=PARENTHESE_F;
 
     tab[15].token=FIN;
-/*
+
     /// Test afficherTableaub
     test_afficherTableau(tab);
 
     /// Test tailleTableau
-    test_tailleTableau(tab);
+    //test_tailleTableau(tab);
 
     /// Test scinderTableau
     test_scinderTableau(tab);
 
     /// Test nombreOperateurDisponible
-    test_nombreOperateurDisponible(tab);
+    //test_nombreOperateurDisponible(tab);
 
     /// Test supprimerParantheseInutile
-    test_supprimerParantheseInutile(tab);
+    //test_supprimerParantheseInutile(tab);
 
     /// Test conversionTableauArbre
-    test_conversionTableauArbre(tab);
+    //test_conversionTableauArbre(tab);
 
     ///Test analyseSyntax
-    test_analyseSyntax(tab);
-*/
-    menu();
+    //test_analyseSyntax(tab);
+
+    //menu();
     /*do{
         saisie(texte);
-       char* texte = "((1)+(x)+(1))\n"; //+(1)\n";
+       char* texte = "((((((x*2))))))\n"; //+(1)\n";
         equation = analyseLex(texte);
 
         lectureItem(equation);printf("\n");
         afficherTableau(equation);
-        //printf("La taille : %d\n", tailleTableau(equation));
 
-
-       // printf("Nombre d'opérateur disponible dans la fonction : %d", nombreOperateurDisponible(equation));
         arbre = analyseSyntax(equation);
-        //equation = supprimerPare3ntheseInutile(equation);
+        //equation = supprimerParentheseInutile(equation);
         //afficherTableau(equation);
 
         printArbre(arbre, 0, 6);

@@ -385,8 +385,9 @@ Arbre conversionTableauArbre(Arbre abr, Item tab[])
                 abr = creerNoeud(abr, tab[i].token, tab[i].valeur);
                 // On scinde l'expression à droite et à gauche de l'operateur
                 // Puis on utilise conversionTableauArbre avec les deux nouveaux tableaux obtenus.
-                abr->filsDroit = conversionTableauArbre(abr->filsDroit, scinderTableau(tab, i + 1, taille));
                 if (i != 0) abr->filsGauche = conversionTableauArbre(abr->filsGauche, scinderTableau(tab, 0, i - 1));
+                abr->filsDroit = conversionTableauArbre(abr->filsDroit, scinderTableau(tab, i + 1, taille));
+
             }
         }
     } else if (nombreOperateurDisponible(tab) == 0) {
@@ -435,6 +436,7 @@ void test_scinderTableau(Item * tab){
     tab1 = scinderTableau(tab,5,8);
     printf("g(x) = ");
     afficherTableau(tab1);
+    testParentheseComplex(tab1);
     printf("----------\n");
 }
 
