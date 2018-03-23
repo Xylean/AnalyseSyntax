@@ -2,9 +2,9 @@
 #define GLOBAL_H_INCLUDED
 
 #define RESOLUTION 200
-#define RESOLUTION 200
+#define SIZE 200
 
-extern float start,
+extern double start,
              stop;
 
 #endif // GLOBAL_H_INCLUDED

@@ -19,7 +19,7 @@ typedef enum{
 /** Elles sont à definir **/
 //Les erreurs
 typedef enum{
-    NON_VALID_VALUE
+    NON_VALID_VALUE, ERR_BLANK_SPACE,
 }Erreur;
 
 

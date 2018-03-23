@@ -2,11 +2,6 @@
 #include <stdio.h>
 #include "../token.h"
 
-//
-// Created by xyle7 on 20/03/2018.
-
-/// Partie Lorin -----
-
 void freeArbre (Arbre arbre)
 {
     if (arbre!=NULL)
@@ -116,7 +111,7 @@ void afficherTableau(Item tab[])
                     printf("( ");
                     break;
                 case REEL:
-                    printf("y ");
+                    printf("a ");
                     break;
                 case VARIABLE:
                     printf("x ");
@@ -236,8 +231,8 @@ void testParentheseOuvert (Item * liste)
     }
     if (compt !=1)
     {
-        printf ("Erreur : parenthese oouverte non ferme\n");
-        printErreur (liste, compt);
+        printf ("Erreur : parenthese ouverte non ferme\n");
+        printErreur (liste, compt+1);
     }
 }
 
@@ -255,7 +250,7 @@ void testParentheseFerme (Item * liste)
     if (compt == taille)
     {
         printf ("Erreur : parenthese ferme non ouverte\n");
-        printErreur (liste, compt);
+        printErreur (liste, compt-1);
     }
 }
 
@@ -288,7 +283,7 @@ Arbre creerArbre ()
 
 Arbre creerNoeud (Arbre arbre, Token type, TypeValeur value)
 {
-    arbre = malloc (sizeof(struct ArbreSt));
+    arbre = (Arbre)malloc(sizeof(struct ArbreSt));
     arbre->filsDroit = NULL;
     arbre->filsGauche = NULL;
     arbre->item.token = type;
@@ -336,8 +331,6 @@ int testParentheseComplex (Item  * liste)
     return preTest;
 }
 
-///--------------------
-
 Item *scinderTableau(Item tab[], int debut, int fin)
 {
     int difference = fin - debut, i, taille = tailleTableau(tab);
@@ -355,16 +348,6 @@ Item *scinderTableau(Item tab[], int debut, int fin)
 int nombreOperateurDisponible(Item tab[])
 {
     int i, res = 0, paranthese = 0, taille = tailleTableau(tab);
-    /*while ((tab[i].token != OPERATEUR) && (tab[i].token != FIN ))
-    {
-        if (tab[i].token == PARENTHESE_O) paranthese++;
-        if (tab[i].token == PARENTHESE_F) paranthese--;
-        if (paranthese == 0){
-            i++;
-        }
-    }
-    if (tab[i].token == FIN) res =-1;
-    else res= i;*/
     for(i=0; i < taille-1; i++){
         if (tab[i].token == PARENTHESE_O) paranthese++;
         if (tab[i].token == PARENTHESE_F) paranthese--;
@@ -379,13 +362,11 @@ Item *supprimerParantheseInutile(Item tab[])
 {
     int taille = tailleTableau(tab);
 
-    if (taille > 2) while(tab[0].token == PARENTHESE_O && tab[taille-2].token == PARENTHESE_F)
+    if (taille > 2) while(nombreOperateurDisponible(tab) == 0 && tab[0].token == PARENTHESE_O && tab[taille-2].token == PARENTHESE_F)
     {
         tab = scinderTableau(tab,1, taille-3);
+        taille = tailleTableau(tab);
     }
-    /*taille = tailleTableau(tab);
-    Item *tableau = malloc((taille)*sizeof(Item));
-    tableau = tab;*/
     return tab;
 
 }
@@ -393,13 +374,13 @@ Item *supprimerParantheseInutile(Item tab[])
 Arbre conversionTableauArbre(Arbre abr, Item tab[])
 {
     tab = supprimerParantheseInutile(tab);
+    afficherTableau(tab);
     int i,j, taille = tailleTableau(tab), paranthese = 0;
     if (nombreOperateurDisponible(tab) != 0) {
         for (i=0; i < taille; i++) {
             if (tab[i].token == PARENTHESE_O) paranthese++;
             if (tab[i].token == PARENTHESE_F) paranthese--;
             if (tab[i].token == OPERATEUR && paranthese == 0) {
-                //abr->item = tab[i]; //Belle fonction Lorin
                 abr = creerNoeud(abr, tab[i].token, tab[i].valeur);
                 abr->filsGauche = conversionTableauArbre(abr->filsGauche, scinderTableau(tab, 0, i - 1));
                 if (i != 0) abr->filsDroit = conversionTableauArbre(abr->filsDroit, scinderTableau(tab, i + 1, taille));
@@ -410,13 +391,11 @@ Arbre conversionTableauArbre(Arbre abr, Item tab[])
             if (tab[j].token == PARENTHESE_O) paranthese++;
             if (tab[j].token == PARENTHESE_F) paranthese--;
             if (tab[j].token == FONCTION && paranthese == 0) {
-                abr = creerNoeud(abr, tab[j].token, tab[j].valeur); //Belle fonction Lorin
+                abr = creerNoeud(abr, tab[j].token, tab[j].valeur);
                 abr->filsGauche = conversionTableauArbre(abr->filsGauche, scinderTableau(tab, j + 1, taille));
             } else if ((tab[j].token == REEL || tab[j].token == VARIABLE) && paranthese == 0){
-                abr = creerNoeud(abr, tab[j].token, tab[j].valeur); // Belle fonction de Lorine
-            /*} else if ((tab[j].token == REEL || tab[j].token == VARIABLE) && paranthese == 0){
-                abr->filsDroit = creerNoeud(abr->filsDroit, tab[j].token, tab[j].valeur); // Belle fonction de Lorine
-            */}
+                abr = creerNoeud(abr, tab[j].token, tab[j].valeur);
+            }
         }
     }
     return abr;
@@ -427,9 +406,10 @@ Arbre analyseSyntax(Item * table)
     int testValid =0;
     Arbre abr = creerArbre();
     if (testParentheseComplex(table) == 0){
+        //printf("\ncoucou\n");
         abr = conversionTableauArbre(abr,table);
         testValid = testArbreValid(abr, testValid);
-        if (testValid != 0) abr = NULL;
+        if (testValid != 0) abr = NULL; //printf("\nShit Append!");
     }
     return abr;
 }
