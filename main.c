@@ -91,7 +91,7 @@ int main()
     tab[14].token=PARENTHESE_F;
 
     tab[15].token=FIN;
-
+/*
     /// Test afficherTableaub
     test_afficherTableau(tab);
 
@@ -112,8 +112,8 @@ int main()
 
     ///Test analyseSyntax
     test_analyseSyntax(tab);
-
-    //menu();
+*/
+    menu();
     /*do{
         saisie(texte);
        char* texte = "((1)+(x)+(1))\n"; //+(1)\n";
