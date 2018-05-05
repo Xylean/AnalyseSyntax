@@ -1,5 +1,5 @@
 # AnalyseSyntax
-This is a part of an coding project at IMT Lille Douai.
+This is a part of a coding project at IMT Lille Douai.
 
 ## What does this code do ?
 
